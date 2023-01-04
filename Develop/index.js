@@ -18,27 +18,51 @@ const addEmployee = () => {
             type: 'input',
             message: 'What is this employee`s name?',
             name: 'name',
+            validate: roleInput => {
+                if (roleInput) {
+                    return true;
+                } else {
+                    console.log('Please enter this employee`s name.');
+                    return false;
+                }
+            }
         },
         {
             type: 'input',
             message: 'What is this employee`s ID?',
             name: 'ID',
+            validate: IDInput => {
+                if (IDInput) {
+                    return true;
+                } else {
+                    console.log('Please enter the employee`s ID.');
+                    return false;
+                }
+            }
         },
         {
             type: 'input',
             message: 'What is this employee`s email?',
             name: 'email',
+            validate: emailInput => {
+                if (emailInput) {
+                    return true;
+                } else {
+                    console.log('Please enter this employee`s email address.');
+                    return false;
+                }
+            }
         },
         {
             type: 'input',
-            message: 'What is this employee`s office number?',
+            message: 'What is thie manager`s office phone number?',
             name: 'officeNumber',
             when:(officeNumberInput) => officeNumberInput.role === 'Manager',
             validate: officeNumberInput => {
                 if (officeNumberInput) {
-                    return: true;
+                    return true;
                 } else {
-                    console.log('Please enter the Engineer`s GitHub.');
+                    console.log('Please enter the Manager`s office phone number.');
                     return false;
                 }
             }
