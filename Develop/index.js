@@ -6,7 +6,31 @@ const Manager = require('./lib/Manager');
 const Engineer = require('./lib/Engineer');
 const Intern = require('./lib/Intern');
 
-const
+const addManager = () => {
+    return inquirer.prompt([
+        {
+            type: 'input',
+            message: "Who is the manager?",
+            name: 'name',
+        },
+        {
+            type: 'input',
+            message: 'What is the manager`s employee ID?',
+            name: 'ID',
+        },
+        {
+            type: 'input',
+            message: 'What is the manager`s email?',
+            name: 'email',
+        },{
+            type: 'input',
+            message: 'What is the manager`s office number?',
+            name: 'officeNumber',
+        },
+        email
+        officenumber
+    ])
+}
 
 const writeFile = data => {
     fs.writeFile('newHTML.html', data, err => {
