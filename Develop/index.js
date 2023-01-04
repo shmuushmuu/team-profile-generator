@@ -30,9 +30,9 @@ const addEmployee = () => {
         {
             type: 'input',
             message: 'What is this employee`s ID?',
-            name: 'ID',
-            validate: IDInput => {
-                if (IDInput) {
+            name: 'id',
+            validate: idInput => {
+                if (idInput) {
                     return true;
                 } else {
                     console.log('Please enter the employee`s ID.');
@@ -103,20 +103,36 @@ const addEmployee = () => {
     ]);
 };
 
-const writeFile = data => {
-    fs.writeFile('newHTML.html', data, err => {
-        if (err) {
-            console.log(err);
-        } else {
-            console.log('Now that you know your team better, make sure you don`t say anything offensive! :)')
-        }
-    })
-};
+return inquirer.prompt(questions)
+.then(employeeData => {
+    let {role, name, id, email, officeNumber, gitHub, school} = employeeData;
+    let employee;
+    if (role === 'Manager'){
+        employee = new Manager(name, id, email, officeNumber)
+    }
+    if (role === 'Engineer'){
+        employee = new Engineer(name, id, email, gitHub)
+    }
+    if (role === 'Intern'){
+        employee = new Intern(name, id, email, school)
+    }
+});
+
 
 addEmployee()
-    .then(answers => {
-        return generateHTML(answers);
-    })
+.then(answers => {
+    return generateHTML(answers);
+})
     .then(data => {
         return writeFile(data);
     });
+
+    const writeFile = data => {
+        fs.writeFile('new.html', data, err => {
+            if (err) {
+                console.log(err);
+            } else {
+                console.log('Now that you know your team better, make sure you don`t say anything offensive! :)')
+            }
+        })
+    };
