@@ -6,38 +6,45 @@ const Manager = require('./lib/Manager');
 const Engineer = require('./lib/Engineer');
 const Intern = require('./lib/Intern');
 
-const createTeam = () => {
-
-    const addManager = () => {
-        return inquirer.prompt([
-            {
-                type: 'input',
-                message: "Who is the manager?",
-                name: 'name',
-            },
-            {
-                type: 'input',
-                message: 'What is the manager`s GitHub ID?',
-                name: 'ID',
-            },
-            {
-                type: 'input',
-                message: 'What is the manager`s email?',
-                name: 'email',
-            },
-            {
-                type: 'input',
-                message: 'What is the manager`s office number?',
-                name: 'officeNumber',
-            },
-            {
-                type: 'confirm',
-                message: 'Do you want to add more employees to the team?',
-                name: '',
-
+const addEmployee = () => {
+    return inquirer.prompt([
+        {
+            type: 'input',
+            message: 'What is this employee`s name?',
+            name: 'name',
+        },
+        {
+            type: 'input',
+            message: 'What is this employee`s GitHub ID?',
+            name: 'ID',
+        },
+        {
+            type: 'input',
+            message: 'What is this employee`s email?',
+            name: 'email',
+        },
+        {
+            type: 'input',
+            message: 'What is this employee`s office number?',
+            name: 'officeNumber',
+        },
+        {
+            type: 'list',
+            message: 'What is this employee`s role?',
+            name: 'role',
+            choices: ['Manager', 'Engineer', 'Intern'],
+        },
+        {
+            type: 'confirm',
+            message: 'Do you want to add more employees to the team?',
+            name: 'add',
+            if (answer = false) {
+                return answers
+            } else {
+                addEmployee()
             }
-        ])
-    }
+        }
+    ]);
 };
 
 const writeFile = data => {
@@ -50,7 +57,7 @@ const writeFile = data => {
     })
 };
 
-createTeam()
+addEmployee()
     .then(answers => {
         return generateHTML(answers);
     })
