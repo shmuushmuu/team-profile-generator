@@ -6,35 +6,43 @@ const Manager = require('./lib/Manager');
 const Engineer = require('./lib/Engineer');
 const Intern = require('./lib/Intern');
 
-const addManager = () => {
-    return inquirer.prompt([
-        {
-            type: 'input',
-            message: "Who is the manager?",
-            name: 'name',
-        },
-        {
-            type: 'input',
-            message: 'What is the manager`s employee ID?',
-            name: 'ID',
-        },
-        {
-            type: 'input',
-            message: 'What is the manager`s email?',
-            name: 'email',
-        },{
-            type: 'input',
-            message: 'What is the manager`s office number?',
-            name: 'officeNumber',
-        },
-        email
-        officenumber
-    ])
-}
+const createTeam = () => {
+
+    const addManager = () => {
+        return inquirer.prompt([
+            {
+                type: 'input',
+                message: "Who is the manager?",
+                name: 'name',
+            },
+            {
+                type: 'input',
+                message: 'What is the manager`s GitHub ID?',
+                name: 'ID',
+            },
+            {
+                type: 'input',
+                message: 'What is the manager`s email?',
+                name: 'email',
+            },
+            {
+                type: 'input',
+                message: 'What is the manager`s office number?',
+                name: 'officeNumber',
+            },
+            {
+                type: 'confirm',
+                message: 'Do you want to add more employees to the team?',
+                name: '',
+
+            }
+        ])
+    }
+};
 
 const writeFile = data => {
     fs.writeFile('newHTML.html', data, err => {
-        if(err) {
+        if (err) {
             console.log(err);
         } else {
             console.log('Now that you know your team better, make sure you don`t say anything offensive! :)')
@@ -42,10 +50,10 @@ const writeFile = data => {
     })
 };
 
-questions() 
-.then(answers => { 
-    return generateHTML(answers);
-})
-.then(data => {
-    return writeFile(data);
-});
+createTeam()
+    .then(answers => {
+        return generateHTML(answers);
+    })
+    .then(data => {
+        return writeFile(data);
+    });
