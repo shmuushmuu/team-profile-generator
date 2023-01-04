@@ -9,13 +9,19 @@ const Intern = require('./lib/Intern');
 const addEmployee = () => {
     return inquirer.prompt([
         {
+            type: 'list',
+            message: 'What is this employee`s role?',
+            name: 'role',
+            choices: ['Manager', 'Engineer', 'Intern'],
+        },
+        {
             type: 'input',
             message: 'What is this employee`s name?',
             name: 'name',
         },
         {
             type: 'input',
-            message: 'What is this employee`s GitHub ID?',
+            message: 'What is this employee`s ID?',
             name: 'ID',
         },
         {
@@ -27,22 +33,48 @@ const addEmployee = () => {
             type: 'input',
             message: 'What is this employee`s office number?',
             name: 'officeNumber',
+            when:(officeNumberInput) => officeNumberInput.role === 'Manager',
+            validate: officeNumberInput => {
+                if (officeNumberInput) {
+                    return: true;
+                } else {
+                    console.log('Please enter the Engineer`s GitHub.');
+                    return false;
+                }
+            }
         },
         {
-            type: 'list',
-            message: 'What is this employee`s role?',
-            name: 'role',
-            choices: ['Manager', 'Engineer', 'Intern'],
+            type: 'input',
+            message: 'What is this engineer`s GitHub account?',
+            name: 'gitHub',
+            when:(gitHubInput) => gitHubInput.role === 'Engineer',
+            validate: gitHubInput => {
+                if (gitHubInput) {
+                    return true;
+                } else {
+                    console.log('Please enter the Engineer`s GitHub.');
+                    return false;
+                }
+            }
+        },{
+            type: 'input',
+            message: 'Where does this intern go to school?',
+            name: 'school',
+            when:(schoolInput) => schoolInput.role === 'Intern',
+            validate: schoolInput => {
+                if (schoolInput) {
+                    return true;
+                } else {
+                    console.log('Please enter the intern`s school.');
+                    return false;
+                }
+            }
         },
         {
             type: 'confirm',
             message: 'Do you want to add more employees to the team?',
             name: 'add',
-            if (answer = false) {
-                return answers
-            } else {
-                addEmployee()
-            }
+            default: false,
         }
     ]);
 };
