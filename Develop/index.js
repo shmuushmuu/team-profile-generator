@@ -1,13 +1,14 @@
 const inquirer = require('inquirer');
 const fs = require('fs');
-const generateHtml = require('./src/page-template');
+const generatePage = require('./src/page-template');
 
 const Manager = require('./lib/Manager');
 const Engineer = require('./lib/Engineer');
 const Intern = require('./lib/Intern');
 
-const addEmployee = () => {
-    return inquirer.prompt([
+const teamArray = [];
+
+const employeeInfo = [
         {
             type: 'list',
             message: 'What is this employee`s role?',
@@ -100,11 +101,24 @@ const addEmployee = () => {
             name: 'add',
             default: false,
         }
-    ]);
+    ];
+
+
+
+const writeFile = data => {
+    fs.writeFile('./Develop/dist/team.html', data, err => {
+        if (err) {
+            console.log(err);
+        } else {
+            console.log('Now that you know your team better, make sure you don`t say anything offensive! :)')
+        }
+    })
 };
 
-return inquirer.prompt()
-    .then(employeeData => {
+
+const addEmployee = () => {
+return inquirer.prompt(employeeInfo)
+    .then(data => {
         let { role, name, id, email, officeNumber, gitHub, school } = employeeData;
         let employee;
         if (role === 'Manager') {
@@ -117,22 +131,6 @@ return inquirer.prompt()
             employee = new Intern(name, id, email, school)
         }
     });
-
-
-
-const writeFile = data => {
-    fs.writeFile('new.html', data, err => {
-        if (err) {
-            console.log(err);
-        } else {
-            console.log('Now that you know your team better, make sure you don`t say anything offensive! :)')
-        }
-    })
 };
-addEmployee()
-    .then(answers => {
-        return generateHTML(answers);
-    })
-    .then(data => {
-        return writeFile(data);
-    });
+
+addEmployee();
