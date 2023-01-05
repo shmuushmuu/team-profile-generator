@@ -1,6 +1,6 @@
 const inquirer = require('inquirer');
 const fs = require('fs');
-const generatePage = require('./src/page-template');
+const generatePage = require('./src/page-template.js');
 
 const Manager = require('./lib/Manager');
 const Engineer = require('./lib/Engineer');
@@ -19,8 +19,8 @@ const employeeInfo = [
         type: 'input',
         message: 'What is this employee`s name?',
         name: 'name',
-        validate: roleInput => {
-            if (roleInput) {
+        validate: nameInput => {
+            if (nameInput) {
                 return true;
             } else {
                 console.log('Please enter this employee`s name.');
@@ -97,13 +97,38 @@ const employeeInfo = [
     },
     {
         type: 'confirm',
+        name: 'confirmAddEmployee',
         message: 'Do you want to add more employees to the team?',
-        name: 'add',
         default: false,
     }
 ];
 
 
+
+
+const addEmployee = () => {
+    return inquirer.prompt(employeeInfo)
+    .then(employeeData => {
+        let { role, name, id, email, officeNumber, gitHub, school } = employeeData;
+        let employee;
+        if (role === 'Manager') {
+            employee = new Manager(name, id, email, officeNumber)
+        }
+        if (role === 'Engineer') {
+            employee = new Engineer(name, id, email, gitHub)
+        }
+        if (role === 'Intern') {
+            employee = new Intern(name, id, email, school)
+        }
+        teamArray.push(employee);
+
+        if (employeeData.confirmAddEmployee) {
+            return promptEmployee(teamArray);
+        } else {
+            return teamArray;
+        }
+    });
+};
 
 const writeFile = data => {
     fs.writeFile('./dist/team.html', data, err => {
@@ -113,25 +138,6 @@ const writeFile = data => {
             console.log('Now that you know your team better, make sure you don`t say anything offensive! :)')
         }
     })
-};
-
-
-const addEmployee = () => {
-    return inquirer.prompt(employeeInfo)
-        .then(data => {
-            let { role, name, id, email, officeNumber, gitHub, school } = data;
-            let employee;
-            if (role === 'Manager') {
-                employee = new Manager(name, id, email, officeNumber)
-            }
-            if (role === 'Engineer') {
-                employee = new Engineer(name, id, email, gitHub)
-            }
-            if (role === 'Intern') {
-                employee = new Intern(name, id, email, school)
-            }
-            teamArray.push(employee);
-        });
 };
 
 addEmployee()
