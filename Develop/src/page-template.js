@@ -9,19 +9,19 @@ const generatePage = teamArray => {
         } 
 
         if (role === "Engineer"){
-            employeeList.push(Engineer(teamArray[i]));
+            employeeList.push(engineer(teamArray[i]));
         } 
 
         if (role === "Intern"){
-            employeeList.push(Intern(teamArray[i]));
+            employeeList.push(intern(teamArray[i]));
         } 
     }
     const newTeam = employeeList.join('');
-    return HTMLParagraphElement(newTeam);
+    return htmlPage(newTeam);
 };
 
 // export function to generate entire page
-module.exports = (team) => {
+const htmlPage = newTeam => {
     // TODO: MAIN HTML TEMPLATE LITERAL GOES HERE
     return `
     <!DOCTYPE html>
@@ -68,7 +68,7 @@ module.exports = (team) => {
   </header>
   <main>
     <article>
-      <h2>${manager.name}</h2>
+      <h2>Manager: ${manager.name}</h2>
       <ul>
         <li>ID: ${manager.id}</li>
         <li>Email: <a href="mailto:${manager.email}">${manager.email}</li>
@@ -76,7 +76,7 @@ module.exports = (team) => {
       </ul>
     </article>
     <article>
-      <h2>${engineer.name}</h2>
+      <h2>Engineer: ${engineer.name}</h2>
       <ul>
         <li>ID: ${engineer.id}</li>
         <li>Email: <a href="mailto:${engineer.email}">${engineer.email}</li>
@@ -84,7 +84,7 @@ module.exports = (team) => {
       </ul>
     </article>
     <article>
-      <h2>${intern.name}</h2>
+      <h2>Intern: ${intern.name}</h2>
       <ul>
         <li>ID: ${intern.id}</li>
         <li>Email: <a href="mailto:${intern.email}">${intern.email}</a></li>
@@ -97,5 +97,5 @@ module.exports = (team) => {
   </footer>
 </body>
 </html> `
-
-};
+}
+module.exports = generatePage;
