@@ -1,5 +1,5 @@
 // create the team
-const generateTeamMembers = teamArray => {
+const generatePage = teamArray => {
     employeeList = [];
     for (let i = 0; teamArray.length>i; i++) {
         const role = teamArray[i].getRole();
@@ -71,7 +71,7 @@ module.exports = (team) => {
       <h2>${manager.name}</h2>
       <ul>
         <li>ID: ${manager.id}</li>
-        <li>Email: ${manager.email}</li>
+        <li>Email: <a href="mailto:${manager.email}">${manager.email}</li>
         <li>Office Number: ${manager.officeNumber}</li>
       </ul>
     </article>
@@ -79,7 +79,7 @@ module.exports = (team) => {
       <h2>${engineer.name}</h2>
       <ul>
         <li>ID: ${engineer.id}</li>
-        <li>Email: ${engineer.email}</li>
+        <li>Email: <a href="mailto:${engineer.email}">${engineer.email}</li>
         <li>GitHub: <a href="#${engineer.github}">person</a></li>
       </ul>
     </article>
@@ -87,7 +87,7 @@ module.exports = (team) => {
       <h2>${intern.name}</h2>
       <ul>
         <li>ID: ${intern.id}</li>
-        <li>Email: ${intern.email}</li>
+        <li>Email: <a href="mailto:${intern.email}">${intern.email}</a></li>
         <li>School: ${intern.school}</li>
       </ul>
     </article>

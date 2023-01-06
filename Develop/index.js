@@ -123,7 +123,7 @@ const addEmployee = () => {
         teamArray.push(employee);
 
         if (employeeData.confirmAddEmployee) {
-            return promptEmployee(teamArray);
+            return addEmployee(teamArray);
         } else {
             return teamArray;
         }
