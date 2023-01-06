@@ -1,7 +1,24 @@
 // create the team
-// const generateTeamMembers = (team) => {
+const generateTeamMembers = teamArray => {
+    employeeList = [];
+    for (let i = 0; teamArray.length>i; i++) {
+        const role = teamArray[i].getRole();
 
-// };
+        if (role === "Manager"){
+            employeeList.push(manager(teamArray[i]));
+        } 
+
+        if (role === "Engineer"){
+            employeeList.push(Engineer(teamArray[i]));
+        } 
+
+        if (role === "Intern"){
+            employeeList.push(Intern(teamArray[i]));
+        } 
+    }
+    const newTeam = employeeList.join('');
+    return HTMLParagraphElement(newTeam);
+};
 
 // export function to generate entire page
 module.exports = (team) => {
