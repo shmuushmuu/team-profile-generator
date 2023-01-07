@@ -8,9 +8,11 @@ const managerHTML = manager => {
       <li>Email: <a href="mailto:${manager.email}">${manager.email}</li>
       <li>Office Number: ${manager.officeNumber}</li>
     </ul>
-  </article>`}
+  </article>
+  `
+};
 
-const engineerHTML => engineer {
+const engineerHTML = engineer => {
     return `  
   <article>
     <h2>Engineer: ${engineer.name}</h2>
@@ -19,10 +21,11 @@ const engineerHTML => engineer {
       <li>Email: <a href="mailto:${engineer.email}">${engineer.email}</li>
       <li>GitHub: <a href="#${engineer.github}">person</a></li>
     </ul>
-  </article>`
-}
+  </article>
+  `
+};
 
-const internHTML => intern {
+const internHTML = intern => {
     return `
     <article>
       <h2>Intern: ${intern.name}</h2>
@@ -36,20 +39,20 @@ const internHTML => intern {
 
 const generatePage = teamArray => {
     employeeList = [];
-    for (let i = 0; teamArray.length>i; i++) {
+    for (let i = 0; teamArray.length > i; i++) {
         const role = teamArray[i].getRole();
 
-        if (role === "Manager"){
+        if (role === "Manager") {
             employeeList.push(managerHTML(teamArray[i]));
-        } 
+        }
 
-        if (role === "Engineer"){
+        if (role === "Engineer") {
             employeeList.push(engineerHTML(teamArray[i]));
-        } 
+        }
 
-        if (role === "Intern"){
+        if (role === "Intern") {
             employeeList.push(internHTML(teamArray[i]));
-        } 
+        }
     }
     const newTeam = employeeList.join('');
     return htmlPage(newTeam);
