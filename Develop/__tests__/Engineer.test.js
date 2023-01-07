@@ -1,7 +1,10 @@
 const Engineer = require("../lib/Engineer");
 
 describe("Engineers are Employees who have a GitHub.", () => {
-    const engineer = new Engineer('Tim', 5745, 'Tim@gmail.com', 'timmit');
+    it("should add a GitHub account name to the employee info", () => {
 
-    expect(engineer.gitHub).toEqual(expect.any(String));
+        const engineer = new Engineer('Tim', 5745, 'Tim@gmail.com', 'timmit');
+
+        expect(engineer.gitHub).toEqual(expect.any(String));
+    })
 });
