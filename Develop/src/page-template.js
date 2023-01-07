@@ -1,19 +1,54 @@
 // create the team
+const managerHTML = manager => {
+    return `
+    <article>
+    <h2>Manager: ${manager.name}</h2>
+    <ul>
+      <li>ID: ${manager.id}</li>
+      <li>Email: <a href="mailto:${manager.email}">${manager.email}</li>
+      <li>Office Number: ${manager.officeNumber}</li>
+    </ul>
+  </article>`}
+
+const engineerHTML => engineer {
+    return `  
+  <article>
+    <h2>Engineer: ${engineer.name}</h2>
+    <ul>
+      <li>ID: ${engineer.id}</li>
+      <li>Email: <a href="mailto:${engineer.email}">${engineer.email}</li>
+      <li>GitHub: <a href="#${engineer.github}">person</a></li>
+    </ul>
+  </article>`
+}
+
+const internHTML => intern {
+    return `
+    <article>
+      <h2>Intern: ${intern.name}</h2>
+      <ul>
+        <li>ID: ${intern.id}</li>
+        <li>Email: <a href="mailto:${intern.email}">${intern.email}</a></li>
+        <li>School: ${intern.school}</li>
+      </ul>
+    </article>`
+}
+
 const generatePage = teamArray => {
     employeeList = [];
     for (let i = 0; teamArray.length>i; i++) {
         const role = teamArray[i].getRole();
 
         if (role === "Manager"){
-            employeeList.push(manager(teamArray[i]));
+            employeeList.push(managerHTML(teamArray[i]));
         } 
 
         if (role === "Engineer"){
-            employeeList.push(engineer(teamArray[i]));
+            employeeList.push(engineerHTML(teamArray[i]));
         } 
 
         if (role === "Intern"){
-            employeeList.push(intern(teamArray[i]));
+            employeeList.push(internHTML(teamArray[i]));
         } 
     }
     const newTeam = employeeList.join('');
@@ -67,30 +102,7 @@ const htmlPage = newTeam => {
     <h1>My Team</h1>
   </header>
   <main>
-    <article>
-      <h2>Manager: ${manager.name}</h2>
-      <ul>
-        <li>ID: ${manager.id}</li>
-        <li>Email: <a href="mailto:${manager.email}">${manager.email}</li>
-        <li>Office Number: ${manager.officeNumber}</li>
-      </ul>
-    </article>
-    <article>
-      <h2>Engineer: ${engineer.name}</h2>
-      <ul>
-        <li>ID: ${engineer.id}</li>
-        <li>Email: <a href="mailto:${engineer.email}">${engineer.email}</li>
-        <li>GitHub: <a href="#${engineer.github}">person</a></li>
-      </ul>
-    </article>
-    <article>
-      <h2>Intern: ${intern.name}</h2>
-      <ul>
-        <li>ID: ${intern.id}</li>
-        <li>Email: <a href="mailto:${intern.email}">${intern.email}</a></li>
-        <li>School: ${intern.school}</li>
-      </ul>
-    </article>
+
   </main>
   <footer>
     &copy; 2022-2023
