@@ -19,7 +19,7 @@ const engineerHTML = engineer => {
     <ul>
       <li>ID: ${engineer.id}</li>
       <li>Email: <a href="mailto:${engineer.email}">${engineer.email}</li>
-      <li>GitHub: <a href="#${engineer.github}">person</a></li>
+      <li>GitHub: <a href="github.com/${engineer.gitHub}">${engineer.gitHub}</a></li>
       </ul>
       </article>
       `
