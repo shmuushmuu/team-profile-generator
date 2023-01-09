@@ -103,13 +103,10 @@ const employeeInfo = [
     }
 ];
 
-
-
-
 const addEmployee = () => {
-    return inquirer.prompt(employeeInfo)
-    .then(employeeData => {
-        let { role, name, id, email, officeNumber, gitHub, school } = employeeData;
+    inquirer.prompt(employeeInfo)
+    .then(answers => {
+        let { role, name, id, email, officeNumber, gitHub, school } = answers;
         let employee;
         if (role === 'Manager') {
             employee = new Manager(name, id, email, officeNumber)
@@ -122,13 +119,15 @@ const addEmployee = () => {
         }
         teamArray.push(employee);
 
-        if (employeeData.confirmAddEmployee) {
-            return addEmployee(teamArray);
+        if (answers.confirmAddEmployee) {
+            return addEmployee();
         } else {
-            return teamArray;
+            const page = generatePage(teamArray);
+            writeFile(page);
         }
     });
 };
+
 
 const writeFile = data => {
     fs.writeFile('./dist/team.html', data, err => {
@@ -137,13 +136,14 @@ const writeFile = data => {
         } else {
             console.log('Now that you know your team better, make sure you don`t say anything offensive! :)')
         }
-    })
-};
-
-addEmployee()
-    .then(data => {
-        return generatePage(data)
-    })
-    .then(html => {
-        return writeFile(html)
     });
+};    
+    addEmployee()
+        // .then(data => {
+        //     return generatePage(data)
+        // })
+        // .then(html => {
+        //     console.log(html);
+        //     return 
+        // })
+

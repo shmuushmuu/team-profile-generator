@@ -4,12 +4,12 @@ const managerHTML = manager => {
     <article>
     <h2>Manager: ${manager.name}</h2>
     <ul>
-      <li>ID: ${manager.id}</li>
-      <li>Email: <a href="mailto:${manager.email}">${manager.email}</li>
-      <li>Office Number: ${manager.officeNumber}</li>
+    <li>ID: ${manager.id}</li>
+    <li>Email: <a href="mailto:${manager.email}">${manager.email}</li>
+    <li>Office Number: ${manager.officeNumber}</li>
     </ul>
-  </article>
-  `
+    </article>
+    `
 };
 
 const engineerHTML = engineer => {
@@ -20,46 +20,50 @@ const engineerHTML = engineer => {
       <li>ID: ${engineer.id}</li>
       <li>Email: <a href="mailto:${engineer.email}">${engineer.email}</li>
       <li>GitHub: <a href="#${engineer.github}">person</a></li>
-    </ul>
-  </article>
-  `
-};
-
+      </ul>
+      </article>
+      `
+    };
+    
 const internHTML = intern => {
     return `
     <article>
       <h2>Intern: ${intern.name}</h2>
       <ul>
-        <li>ID: ${intern.id}</li>
-        <li>Email: <a href="mailto:${intern.email}">${intern.email}</a></li>
-        <li>School: ${intern.school}</li>
+      <li>ID: ${intern.id}</li>
+      <li>Email: <a href="mailto:${intern.email}">${intern.email}</a></li>
+      <li>School: ${intern.school}</li>
       </ul>
-    </article>`
-}
-
-const generatePage = teamArray => {
-    employeeList = [];
-    for (let i = 0; teamArray.length > i; i++) {
-        const role = teamArray[i].getRole();
-
-        if (role === "Manager") {
-            employeeList.push(managerHTML(teamArray[i]));
-        }
-
-        if (role === "Engineer") {
-            employeeList.push(engineerHTML(teamArray[i]));
-        }
-
-        if (role === "Intern") {
-            employeeList.push(internHTML(teamArray[i]));
-        }
+      </article>`
     }
-    const newTeam = employeeList.join('');
-    return htmlPage(newTeam);
-};
+    
+    const generatePage = teamArray => {
+        const employeeList = [];
+        console.log(teamArray)
+        for (let i = 0; i < teamArray.length; i++) {
+            console.log(i, teamArray[i]);
+            console.log( teamArray[i].prototype);
+            const role = teamArray[i].getRole();
+    
+            if (role === "Manager") {
+                employeeList.push(managerHTML(teamArray[i]));
+            }
+    
+            if (role === "Engineer") {
+                employeeList.push(engineerHTML(teamArray[i]));
+            }
+    
+            if (role === "Intern") {
+                employeeList.push(internHTML(teamArray[i]));
+            }
+        }
+        const newTeam = employeeList.join('');
+        return newTeam;
+    };
 
 // export function to generate entire page
 const htmlPage = newTeam => {
+  // console.log(newTeam);
     // TODO: MAIN HTML TEMPLATE LITERAL GOES HERE
     return `
     <!DOCTYPE html>
@@ -105,7 +109,7 @@ const htmlPage = newTeam => {
     <h1>My Team</h1>
   </header>
   <main>
-
+    ${generatePage(newTeam)}
   </main>
   <footer>
     &copy; 2022-2023
@@ -113,4 +117,6 @@ const htmlPage = newTeam => {
 </body>
 </html> `
 }
-module.exports = generatePage;
+
+module.exports = htmlPage;
+// module.exports = htmlPage;
